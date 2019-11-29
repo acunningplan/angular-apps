@@ -1,9 +1,13 @@
+<app-header (selectedFeature)="onNavigate($event)"></app-header>
 <div class="container">
-  <app-cockpit (serverCreated)='onServerAdded($event)' (bpCreated)='onBlueprintAdded($event)'></app-cockpit>
-  <hr>
+  <hr />
   <div class="row">
     <div class="col-xs-12">
-      <app-server-element *ngFor="let serverElement of serverElements" [srvElement]='serverElement' ></app-server-element>
+      <!-- <app-numbers></app-numbers> -->
+      <app-recipes *ngIf="selectedFeature === 'recipe'"></app-recipes>
+      <app-shopping-list
+        *ngIf="selectedFeature !== 'recipe'"
+      ></app-shopping-list>
     </div>
   </div>
 </div>

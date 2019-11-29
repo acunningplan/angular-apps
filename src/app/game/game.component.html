@@ -1,0 +1,6 @@
+<app-game-control
+  (oddCreated)="onOdd($event)"
+  (evenCreated)="onEven($event)"
+></app-game-control>
+<app-even *ngFor="let time of evenList" [time]="time"></app-even>
+<app-odd *ngFor="let time of oddList" [time]="time"></app-odd>
