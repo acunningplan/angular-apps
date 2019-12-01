@@ -1,18 +1,23 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from "@angular/core";
+import { LoggingService } from "src/app/shared/logging.service";
+import { AccountsDataService } from "src/app/shared/accounts-data.service";
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  selector: "app-account",
+  templateUrl: "./account.component.html",
+  styleUrls: ["./account.component.css"]
 })
 export class AccountComponent {
-  @Input() account: {name: string, status: string};
+  @Input() account: { name: string; status: string };
   @Input() id: number;
-  @Output() statusChanged = new EventEmitter<{id: number, newStatus: string}>();
 
+  constructor(
+    private loggingService: LoggingService,
+    private accountsDataService: AccountsDataService
+  ) {}
 
   onSetTo(status: string) {
-    this.statusChanged.emit({id: this.id, newStatus: status});
-    console.log('A server status changed, new status: ' + status);
+    this.accountsDataService.updateStatus(this.id, status);
+    this.accountsDataService.statusUpdated.emit(status)
   }
 }

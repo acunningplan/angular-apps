@@ -1,13 +1,13 @@
-<app-header (selectedFeature)="onNavigate($event)"></app-header>
+<!-- <app-header (selectedFeature)="onNavigate($event)"></app-header>
 <div class="container">
   <hr />
   <div class="row">
     <div class="col-xs-12">
-      <!-- <app-numbers></app-numbers> -->
       <app-recipes *ngIf="selectedFeature === 'recipe'"></app-recipes>
       <app-shopping-list
         *ngIf="selectedFeature !== 'recipe'"
       ></app-shopping-list>
     </div>
   </div>
-</div>
+</div> -->
+<app-routing></app-routing>
