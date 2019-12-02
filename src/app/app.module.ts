@@ -9,23 +9,21 @@ import { ShoppingListService } from "./shopping-list/shopping-list.service";
 
 import { RecipesModule } from "./recipes/recipes.module";
 import { ShoppingListModule } from "./shopping-list/shopping-list.module";
-import { RoutingModule } from "./routing/routing.module";
 import { SharedModule } from "./shared/shared.module";
-import { GameModule } from './game/game.module';
+import { AppRoutingModule } from "./app-routing.module";
+import { DropdownDirective } from "./shared/dropdown.directive";
+import { FormsPracticeModule } from './forms/forms.module';
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    AppComponent,
-  ],
+  declarations: [HeaderComponent, AppComponent, DropdownDirective],
   imports: [
     BrowserModule,
     FormsModule,
-    RoutingModule,
-    RecipesModule,
-    ShoppingListModule,
-    SharedModule,
-    GameModule
+    // RecipesModule,
+    // ShoppingListModule,
+    // SharedModule,
+    // AppRoutingModule,
+    FormsPracticeModule
   ],
   providers: [ShoppingListService],
   bootstrap: [AppComponent]
