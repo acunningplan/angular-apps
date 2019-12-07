@@ -18,18 +18,18 @@ export class RecipeDetailComponent implements OnInit {
   ) {}
 
   // Helper function for getting specific recipe
-  getRecipeByName(recipeName: string): Recipe {
+  getRecipeByPath(recipePath: string): Recipe {
     return this.recipeService
       .getRecipes()
-      .find(recipe => recipe.name === recipeName);
+      .find(recipe => recipe.path === recipePath);
   }
 
   ngOnInit() {
-    const recipeName = this.route.snapshot.params["recipe-name"];
-    this.recipe = this.getRecipeByName(recipeName);
+    const recipePath = this.route.snapshot.params["recipe-path"];
+    this.recipe = this.getRecipeByPath(recipePath);
 
     this.route.params.subscribe((params: Params) => {
-      this.recipe = this.getRecipeByName(params["recipe-name"]);
+      this.recipe = this.getRecipeByPath(params["recipe-path"]);
     });
   }
 
@@ -39,5 +39,10 @@ export class RecipeDetailComponent implements OnInit {
 
   onEditRecipe() {
     this.router.navigate(["edit"], { relativeTo: this.route });
+  }
+  
+  onDeleteRecipe() {
+    this.recipeService.deleteRecipe(this.recipe.path);
+    this.router.navigate(['/recipes'])
   }
 }

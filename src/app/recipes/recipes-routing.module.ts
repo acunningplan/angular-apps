@@ -7,7 +7,7 @@ import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 
 // const appRoutes: Routes = [
 //   { path: "recipes/2", component: RecipesHomeComponent },
-//   { path: "recipes/:recipe-name", component: RecipeDetailComponent }
+//   { path: "recipes/:recipe-path", component: RecipeDetailComponent }
 // ];
 
 const appRoutes: Routes = [
@@ -17,8 +17,8 @@ const appRoutes: Routes = [
     children: [
       { path: "", component: RecipesHomeComponent },
       { path: "new", component: RecipeEditComponent },
-      { path: ":recipe-name/edit", component: RecipeEditComponent },
-      { path: ":recipe-name", component: RecipeDetailComponent },
+      { path: ":recipe-path/edit", component: RecipeEditComponent },
+      { path: ":recipe-path", component: RecipeDetailComponent },
     ]
   }
   // { path: "**", redirectTo: "/recipes" }

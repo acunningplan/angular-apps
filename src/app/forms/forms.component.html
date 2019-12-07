@@ -1,7 +1,139 @@
 <div class="container">
   <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="projectName">Project name:</label>
+          <input
+            type="text"
+            id="projectName"
+            formControlName="projectName"
+            class="form-control"
+          />
+          <span
+            *ngIf="
+              !projectForm.get('projectName').valid &&
+              projectForm.get('projectName').touched
+            "
+            >Invalid project name</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-control"
+          />
+          <span
+            *ngIf="
+              !projectForm.get('email').valid &&
+              projectForm.get('email').touched
+            "
+            >Invalid email address</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="projectStatus">Project Status</label>
+          <select
+            id="projectStatus"
+            formControlName="projectStatus"
+            class="form-control"
+          >
+            <option value="Stable">Stable</option>
+            <option value="Critical">Critical</option>
+            <option value="Finished">Finished</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container">
+  <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="userData">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              formControlName="username"
+              class="form-control"
+            />
+            <span
+              *ngIf="
+                !signupForm.get('userData.username').valid &&
+                signupForm.get('userData.username').touched
+              "
+              class="help-block"
+            >
+              <span
+                *ngIf="
+                  signupForm.get('userData.username').errors['nameIsForbidden']
+                "
+                >This name is invalid</span
+              >
+              <span
+                *ngIf="signupForm.get('userData.username').errors['required']"
+                >This name is required</span
+              >
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input
+              type="text"
+              id="email"
+              formControlName="email"
+              class="form-control"
+            />
+            <span
+              *ngIf="
+                !signupForm.get('userData.email').valid &&
+                signupForm.get('userData.email').touched
+              "
+              class="help-block"
+              >Please enter a valid email!</span
+            >
+          </div>
+        </div>
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" formControlName="gender" [value]="gender" />{{
+              gender
+            }}
+          </label>
+        </div>
+        <div formArrayName="hobbies">
+          <h4>Your hobbies</h4>
+          <button class="btn btn-default" type="button" (click)="onAddHobby()">
+            Add hobby
+          </button>
+          <div
+            class="form-group"
+            *ngFor="let hobbyControl of getControls(); let i = index"
+          >
+            <input type="text" class="form-control" [formControlName]="i" />
+          </div>
+        </div>
+        <span *ngIf="!signupForm.valid && signupForm.touched" class="help-block"
+          >Please enter a valid form data!</span
+        >
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
         <div id="user-data" ngModelGroup="userData" #userData="ngModelGroup">
           <div class="form-group">
             <label for="username">Username</label>
@@ -14,7 +146,11 @@
               required
             />
           </div>
-          <button class="btn btn-default" type="button">
+          <button
+            class="btn btn-default"
+            type="button"
+            (click)="suggestUserName()"
+          >
             Suggest a Username
           </button>
           <div class="form-group">
@@ -68,4 +204,78 @@
       </form>
     </div>
   </div>
-</div>
+  <hr />
+  <div class="row" *ngIf="submitted">
+    <div class="col-xs-12">
+      <h3>Your data</h3>
+      <p>Username: {{ user.username }}</p>
+      <p>email: {{ user.email }}</p>
+      <p>Secret Question: {{ user.secretQuestion }}</p>
+      <p>Answer: {{ user.answer }}</p>
+      <p>Gender: {{ user.gender }}</p>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      
+       Add a Form with the following Inputs (and Validators)
+           1) Mail address (should not be empty and should be an email address)
+           2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
+              Set "Advanced" as Default
+           3) A Password field (should not be empty)
+           4) A Submit Button
+
+           Display a warning message if the Form is invalid AND was touched. Display a warning message below each input if it's invalid.
+
+           Upon submitting the form, you should simply print the Value of the Form to the Console.
+           Optionally, display it in your template.
+      
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            ngModel
+            required
+            email
+            #email="ngModel"
+            class="form-control"
+            id="email"
+            name="email"
+            type="email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="subscription">Subscriptions</label>
+          <select
+            class="form-control"
+            id="subscription"
+            name="subscription"
+            [ngModel]="defaultSubscription"
+          >
+            <option
+              *ngFor="let subsciption of subscriptions"
+              [value]="subsciption"
+              >{{ subsciption }}</option
+            >
+          </select>
+        </div>
+        <div>
+          <label for="Password">Password</label>
+          <input
+            ngModel
+            required
+            class="form-control"
+            id="password"
+            name="password"
+            type="password"
+          />
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+        <div *ngIf="!f.valid && f.touched">The form is invalid.</div>
+      </form>
+    </div>
+  </div>
+</div> -->

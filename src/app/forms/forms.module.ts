@@ -1,22 +1,18 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-
-import { FormsComponent } from './forms.component';
+import { FormsComponent } from "./forms.component";
 
 @NgModule({
-  declarations: [
-    FormsComponent
-  ],
+  declarations: [FormsComponent],
   imports: [
     BrowserModule,
-    FormsModule,
+    // FormsModule,
+    ReactiveFormsModule
   ],
-  exports: [
-    FormsComponent
-  ],
+  exports: [FormsComponent],
   providers: [],
   bootstrap: [FormsComponent]
 })
-export class FormsPracticeModule { }
+export class FormsPracticeModule {}

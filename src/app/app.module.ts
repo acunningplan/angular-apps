@@ -13,19 +13,20 @@ import { SharedModule } from "./shared/shared.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { DropdownDirective } from "./shared/dropdown.directive";
 import { FormsPracticeModule } from './forms/forms.module';
+import { RecipeService } from './recipes/recipe.service';
 
 @NgModule({
   declarations: [HeaderComponent, AppComponent, DropdownDirective],
   imports: [
     BrowserModule,
     FormsModule,
-    // RecipesModule,
-    // ShoppingListModule,
-    // SharedModule,
-    // AppRoutingModule,
-    FormsPracticeModule
+    RecipesModule,
+    ShoppingListModule,
+    SharedModule,
+    AppRoutingModule,
+    // FormsPracticeModule
   ],
-  providers: [ShoppingListService],
+  providers: [ShoppingListService, RecipeService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
