@@ -12,19 +12,22 @@ import { ShoppingListModule } from "./shopping-list/shopping-list.module";
 import { SharedModule } from "./shared/shared.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { DropdownDirective } from "./shared/dropdown.directive";
-import { FormsPracticeModule } from './forms/forms.module';
-import { RecipeService } from './recipes/recipe.service';
+import { FormsPracticeModule } from "./forms/forms.module";
+import { RecipeService } from "./recipes/recipe.service";
+import { PipesModule } from "./pipes/pipes.module";
+import { HttpTestModule } from "./http-test/http-test.module";
 
 @NgModule({
   declarations: [HeaderComponent, AppComponent, DropdownDirective],
   imports: [
     BrowserModule,
     FormsModule,
-    RecipesModule,
-    ShoppingListModule,
-    SharedModule,
-    AppRoutingModule,
-    // FormsPracticeModule
+    // RecipesModule,
+    // ShoppingListModule,
+    // SharedModule,
+    // AppRoutingModule,
+    // PipesModule
+    HttpTestModule
   ],
   providers: [ShoppingListService, RecipeService],
   bootstrap: [AppComponent]
