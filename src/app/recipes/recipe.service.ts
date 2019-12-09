@@ -8,25 +8,31 @@ import { Subject } from "rxjs";
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      "Delicious Fettuccine",
-      "Recipe description goes here",
-      "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2018/9/26/0/FNK_Tuscan-Chicken-Skillet_H2_s4x3.jpg.rend.hgtvcom.826.620.suffix/1537973085542.jpeg",
-      [new Ingredient("Meat", 1), new Ingredient("Potato", 3)]
-    ),
-    new Recipe(
-      "Pepperoni Pizza",
-      "Recipe description goes here",
-      "https://cdn-image.foodandwine.com/sites/default/files/styles/medium_2x/public/1548964409/quesadizzas-FT-RECIPE0319.jpg?itok=utTcRHNM",
-      [new Ingredient("Bread", 2), new Ingredient("Tomatoes", 3)]
-    )
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     "Delicious Fettuccine",
+  //     "Recipe description goes here",
+  //     "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2018/9/26/0/FNK_Tuscan-Chicken-Skillet_H2_s4x3.jpg.rend.hgtvcom.826.620.suffix/1537973085542.jpeg",
+  //     [new Ingredient("Meat", 1), new Ingredient("Potato", 3)]
+  //   ),
+  //   new Recipe(
+  //     "Pepperoni Pizza",
+  //     "Recipe description goes here",
+  //     "https://cdn-image.foodandwine.com/sites/default/files/styles/medium_2x/public/1548964409/quesadizzas-FT-RECIPE0319.jpg?itok=utTcRHNM",
+  //     [new Ingredient("Bread", 2), new Ingredient("Tomatoes", 3)]
+  //   )
+  // ];
+  private recipes: Recipe[] = [];
 
   constructor(private slService: ShoppingListService) {}
 
   getRecipe(recipePath: string) {
     return this.recipes.find(recipe => recipe.path === recipePath);
+  }
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice())
   }
 
   getRecipes() {
