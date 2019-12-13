@@ -6,9 +6,13 @@ import { HeaderComponent } from "./header/header.component";
 import { SharedModule } from "./shared/shared.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { HttpClientModule } from "@angular/common/http";
-import { StoreModule } from '@ngrx/store'
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
 import { CoreModule } from "./core/core.module";
-import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+import { AuthEffects } from "./auth/store/auth.effects";
+import { RecipesEffects } from './recipes/store/recipe.effects';
+
+import * as fromApp from "./store/app.reducer";
 
 @NgModule({
   declarations: [HeaderComponent, AppComponent],
@@ -18,7 +22,8 @@ import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer
     CoreModule,
     SharedModule,
     AppRoutingModule,
-    StoreModule.forRoot({shoppingList: shoppingListReducer})
+    StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([AuthEffects, RecipesEffects])
   ],
   bootstrap: [AppComponent]
 })

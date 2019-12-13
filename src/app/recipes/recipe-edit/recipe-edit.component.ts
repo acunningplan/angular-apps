@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import {
   FormGroup,
@@ -10,21 +10,29 @@ import {
 import { RecipeService } from "../recipe.service";
 import { Recipe } from "../recipe.model";
 import { Ingredient } from "src/app/shared/ingredient.model";
+import { map } from "rxjs/operators";
+import { Store } from "@ngrx/store";
+import * as fromApp from "../../store/app.reducer";
+import * as RecipesActions from "../store/recipe.actions";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-recipe-edit",
   templateUrl: "./recipe-edit.component.html",
   styleUrls: ["./recipe-edit.component.css"]
 })
-export class RecipeEditComponent implements OnInit {
+export class RecipeEditComponent implements OnInit, OnDestroy {
   recipePath: string;
   editMode: boolean = false;
   recipeForm: FormGroup;
 
+  private storeSub: Subscription;
+
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private store: Store<fromApp.AppState>
   ) {}
 
   ngOnInit() {
@@ -37,6 +45,10 @@ export class RecipeEditComponent implements OnInit {
 
   get ingredientControls() {
     return (<FormArray>this.recipeForm.get("ingredients")).controls;
+  }
+
+  ngOnDestroy() {
+    if (this.storeSub) this.storeSub.unsubscribe();
   }
 
   ingredientObject(ing: Ingredient) {
@@ -67,23 +79,38 @@ export class RecipeEditComponent implements OnInit {
     let recipe: Recipe;
 
     if (this.editMode) {
-      recipe = this.recipeService.getRecipe(this.recipePath);
+      // recipe = this.recipeService.getRecipe(this.recipePath);
+      this.storeSub = this.store
+        .select("recipes")
+        .pipe(
+          map(recipeState => {
+            return recipeState.recipes.find(
+              (recipe, index) => recipe.path === this.recipePath
+            );
+          })
+        )
+        .subscribe(recipe => {
+          this.recipeForm = new FormGroup({
+            name: new FormControl(
+              recipe ? recipe.name : "",
+              Validators.required
+            ),
+            imagePath: new FormControl(
+              recipe ? recipe.imagePath : "",
+              Validators.required
+            ),
+            description: new FormControl(
+              recipe ? recipe.description : "",
+              Validators.required
+            ),
+            ingredients: new FormArray(
+              recipe
+                ? recipe.ingredients.map(ing => this.ingredientObject(ing))
+                : []
+            )
+          });
+        });
     }
-
-    this.recipeForm = new FormGroup({
-      name: new FormControl(recipe ? recipe.name : "", Validators.required),
-      imagePath: new FormControl(
-        recipe ? recipe.imagePath : "",
-        Validators.required
-      ),
-      description: new FormControl(
-        recipe ? recipe.description : "",
-        Validators.required
-      ),
-      ingredients: new FormArray(
-        recipe ? recipe.ingredients.map(ing => this.ingredientObject(ing)) : []
-      )
-    });
   }
 
   // ingredients: new FormArray(recipe ? <FormArray>recipe.ingredients.map(ing => new FormControl(ing)) : <FormArray>[])
@@ -92,11 +119,18 @@ export class RecipeEditComponent implements OnInit {
     const newRecipe = new Recipe(name, description, imagePath, ingredients);
 
     if (this.editMode) {
-      this.recipeService.updateRecipe(this.recipePath, newRecipe);
-      this.router.navigate(["/recipes/", newRecipe.path]);
+      // this.recipeService.updateRecipe(this.recipePath, newRecipe);
+      // this.router.navigate(["/recipes/", newRecipe.path]);
+      this.store.dispatch(
+        new RecipesActions.UpdateRecipe({
+          recipePath: this.recipePath,
+          newRecipe: this.recipeForm.value
+        })
+      );
     } else {
-      this.recipeService.addRecipe(newRecipe);
-      this.onCancel();
+      // this.recipeService.addRecipe(newRecipe);
+      // this.onCancel();
+      this.store.dispatch(new RecipesActions.AddRecipe(this.recipeForm.value));
     }
   }
 }
