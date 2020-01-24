@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\travel-bug",
+    "\\src\\app\\travel-bug\\trip-card",
+    "\\src\\app\\travel-bug\\trip-cards"
+  ],
+  "SelectedNode": "\\src\\app\\travel-bug\\trip-card\\trip-card.component.ts",
+  "PreviewInSolutionExplorer": false
+}
