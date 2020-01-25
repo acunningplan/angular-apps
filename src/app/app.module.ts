@@ -7,10 +7,10 @@ import { AppComponent } from "./app.component";
 import { TravelBugModule } from "./travel-bug/travel-bug.module";
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, TravelBugModule],
-  bootstrap: [AppComponent],
-  exports: [],
-  providers: []
+    declarations: [AppComponent],
+    imports: [BrowserModule, HttpClientModule, TravelBugModule],
+    bootstrap: [AppComponent],
+    exports: [],
+    providers: []
 })
-export class AppModule {}
+export class AppModule { }
