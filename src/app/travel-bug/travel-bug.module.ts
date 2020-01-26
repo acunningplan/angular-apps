@@ -20,7 +20,7 @@ const appRoutes: Routes = [
             { path: "", component: TripCardsComponent },
             { path: "add", component: AddTripCardComponent },
             { path: "edit", component: EditTripCardComponent },
-            { path: "view", component: TripCardDetailsComponent },
+            { path: "view/:id", component: TripCardDetailsComponent },
         ]
     }
 ];
@@ -33,6 +33,7 @@ const appRoutes: Routes = [
         UsersComponent,
         TripCardsComponent,
         TripCardComponent,
+        TripCardDetailsComponent,
         AddTripCardComponent,
         EditTripCardComponent,
         HeaderComponent,

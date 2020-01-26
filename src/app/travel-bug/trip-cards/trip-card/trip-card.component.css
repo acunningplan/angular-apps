@@ -1,3 +1,8 @@
-.class {
+.trip-card {
+    width: 18rem;
+    cursor: pointer;
+}
 
+.opaque {
+    opacity: 0.5;
 }
