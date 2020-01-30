@@ -9,6 +9,7 @@ import { ITripCard } from '../../interfaces/models';
 export class TripCardComponent implements OnInit {
 
     @Input() tripCard: ITripCard;
+    isOpaque = false;
 
     constructor() { }
 
@@ -16,7 +17,7 @@ export class TripCardComponent implements OnInit {
     }
 
     onDelete() {
-        this.tripCard.isOpaque = true;
+        this.isOpaque = true;
+        console.log('clicked');
     }
-
 }

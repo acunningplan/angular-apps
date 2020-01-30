@@ -1,4 +1,4 @@
-<div class="card trip-card" [ngStyle]="{ opaque: tripCard.isOpaque }" (click)="onDelete()">
+<div class="card trip-card" [ngClass]="{ opaque: isOpaque }">
     <img [src]="tripCard.image"
          class="card-img-top"
          alt="..."
@@ -9,6 +9,6 @@
             {{ tripCard.description }}
         </p>
         <a [routerLink]="['view', tripCard.name]" class="btn btn-primary">Details</a>
-        <a routerLink="" class="btn btn-danger" style="margin-left: 5px">Delete</a>
+        <a class="btn btn-danger" style="margin-left: 5px" (click)="onDelete()">Delete</a>
     </div>
 </div>

@@ -1,7 +1,10 @@
 .trip-card {
     width: 18rem;
-    cursor: pointer;
 }
+
+    .trip-card img {
+        cursor: pointer;
+    }
 
 .opaque {
     opacity: 0.5;
