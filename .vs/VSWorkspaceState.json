@@ -4,8 +4,10 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\travel-bug",
-    "\\src\\app\\travel-bug\\trip-cards"
+    "\\src\\app\\travel-bug\\trip-cards",
+    "\\src\\app\\travel-bug\\trip-cards\\add-trip-card",
+    "\\src\\app\\travel-bug\\trip-cards\\edit-trip-card"
   ],
-  "SelectedNode": "\\src\\app\\travel-bug\\travel-bug.module.ts",
+  "SelectedNode": "\\src\\app\\travel-bug\\trip-cards\\add-trip-card\\add-trip-card.component.css",
   "PreviewInSolutionExplorer": false
 }

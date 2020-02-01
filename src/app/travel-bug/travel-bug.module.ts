@@ -11,6 +11,7 @@ import { AddTripCardComponent } from './trip-cards/add-trip-card/add-trip-card.c
 import { EditTripCardComponent } from './trip-cards/edit-trip-card/edit-trip-card.component';
 import { TripCardComponent } from './trip-cards/trip-card/trip-card.component';
 import { TripCardDetailsComponent } from './trip-cards/trip-card-details/trip-card-details.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
     { path: "", component: HomeComponent },
@@ -40,7 +41,9 @@ const appRoutes: Routes = [
     ],
     imports: [
         CommonModule,
-        RouterModule.forRoot(appRoutes)
+        RouterModule.forRoot(appRoutes),
+        FormsModule,
+        ReactiveFormsModule
     ],
     exports: [
         TravelBugComponent,
