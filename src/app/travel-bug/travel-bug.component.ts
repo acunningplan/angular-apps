@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { AuthService } from "./auth/auth.service";
 
 @Component({
   selector: "app-travel-bug",
@@ -6,9 +7,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./travel-bug.component.css"]
 })
 export class TravelBugComponent implements OnInit {
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.autoLogin();
+  }
 
   onClick() {
     console.log("You clicked to add a trip card.");

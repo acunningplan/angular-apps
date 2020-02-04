@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
-    selector: 'app-add-trip-card',
-    templateUrl: './add-trip-card.component.html',
-    styleUrls: ['./add-trip-card.component.css']
+    selector: 'app-add-trip-card-td',
+    templateUrl: './add-trip-card-td.component.html',
+    styleUrls: ['./add-trip-card-td.component.css']
 })
-export class AddTripCardComponent implements OnInit {
+export class AddTripCardTdComponent implements OnInit {
     @ViewChild('f') form: NgForm;
     defaultQuestion = "pet";
     answer = "Your answer goes here"

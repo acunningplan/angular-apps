@@ -1,45 +1,91 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm, FormGroup, FormControl, Validators, AbstractControl, FormArray } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  AbstractControl,
+  FormArray
+} from "@angular/forms";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { map } from "rxjs/operators";
+import { TripCard } from "../trip-card.model";
 
 @Component({
-    selector: 'app-add-trip-card',
-    templateUrl: './add-trip-card.component.html',
-    styleUrls: ['./add-trip-card.component.css']
+  selector: "app-add-trip-card",
+  templateUrl: "./add-trip-card.component.html",
+  styleUrls: ["./add-trip-card.component.css"]
 })
 export class AddTripCardComponent implements OnInit {
-    signupForm: FormGroup;
-    username: AbstractControl;
-    email: AbstractControl;
+  signupForm: FormGroup;
+  name: AbstractControl;
+  description: AbstractControl;
 
-    ngOnInit() {
-        this.signupForm = new FormGroup({
-            'username': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
-            'email': new FormControl(null, [Validators.required, Validators.email]),
-            'secret': new FormControl('pet'),
-            'hobbies': new FormArray([])
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.signupForm = new FormGroup({
+      date: new FormControl(),
+      name: new FormControl(),
+      description: new FormControl(),
+      hobbies: new FormArray([])
+    });
+
+    this.name = this.signupForm.get("name");
+    this.description = this.signupForm.get("description");
+  }
+
+  onCreateTripCard(postData: { title: string; content: string }) {
+    this.http.post<TripCard>("sample-url", postData).subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  onFetchTripCards() {
+    this.http
+      .get<TripCard[]>("sample-url")
+      .pipe(
+        map((res: TripCard[]) => {
+          return res;
         })
+      )
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
 
-        this.username = this.signupForm.get('username')
-        this.email = this.signupForm.get('email')
+  getControls() {
+    return (<FormArray>this.signupForm.get("hobbies")).controls;
+  }
+
+  onAddHobby() {
+    const control = new FormControl(null, Validators.required);
+    (<FormArray>this.signupForm.get("hobbies")).push(control);
+  }
+
+  // Synchronous validator example
+  forbiddenNames(control: FormControl): { [s: string]: boolean } {
+    if (control.value == "secret") {
+      return { nameIsForbidden: true };
     }
+    return null;
+  }
 
-    getControls() {
-        return (<FormArray>this.signupForm.get('hobbies')).controls;
-    }
-
-    onAddHobby() {
-        const control = new FormControl(null, Validators.required);
-        (<FormArray>this.signupForm.get('hobbies')).push(control);
-    }
-
-    forbiddenNames(control: FormControl): { [s: string]: boolean } {
-        if (control.value == 'secret') {
-            return { 'nameIsForbidden': true }
+  // Async validator example
+  forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
+    const promise = new Promise<any>((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === "test@test.com") {
+          resolve({ emailIsForbidden: true });
+        } else {
+          resolve(null);
         }
-        return null
-    }
+      }, 1500);
+    });
+    return promise;
+  }
 
-    onSubmit() {
-        console.log(this.signupForm);
-    }
+  onSubmit() {
+    console.log(this.signupForm);
+  }
 }
