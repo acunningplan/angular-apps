@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 import { TripCardsService } from "./trip-cards.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { TripCard } from "./trip-card.model";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-trip-cards",
@@ -29,16 +30,18 @@ export class TripCardsComponent implements OnInit, OnDestroy {
   constructor(
     private tripCardService: TripCardsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
     this.subscription = this.tripCardService.tripCardsChanged.subscribe(
       (tripCards: TripCard[]) => {
         this.tripCards = tripCards;
+        this.http.post("sample-url", { tripCards: [...this.tripCards] });
       }
     );
-    this.tripCards = this.tripCards.getTripCards();
+    this.tripCards = this.tripCardService.getTripCards();
   }
 
   onAddTripCard() {
