@@ -1,23 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ITripCard } from '../../interfaces/models';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-trip-card',
-    templateUrl: './trip-card.component.html',
-    styleUrls: ['./trip-card.component.css']
+  selector: 'app-trip-card',
+  templateUrl: './trip-card.component.html',
+  styleUrls: ['./trip-card.component.css']
 })
 export class TripCardComponent implements OnInit {
 
-    @Input() tripCard: ITripCard;
-    isOpaque = false;
+  constructor() { }
 
-    constructor() { }
+  ngOnInit() {
+  }
 
-    ngOnInit() {
-    }
-
-    onDelete() {
-        this.isOpaque = true;
-        console.log('clicked');
-    }
 }

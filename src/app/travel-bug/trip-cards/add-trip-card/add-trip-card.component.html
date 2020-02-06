@@ -1,66 +1,38 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-1 col-md-offset-2">
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-        <div id="user-data">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              formControlName="username"
-              class="form-control"
-            />
-            <span *ngIf="!name.valid && name.touched"
-              >Please enter a valid name!</span
-            >
-          </div>
-          <button class="btn btn-primary" type="button">
-            Suggest a Username
-          </button>
-          <div class="form-group">
-            <label for="username">Email</label>
-            <input
-              type="text"
-              id="email"
-              class="form-control"
-              formControlName="email"
-            />
-            <span *ngIf="!description.valid && description.touched"
-              >Please enter a valid description!</span
-            >
-          </div>
-        </div>
         <div class="form-group">
-          <label for="secret">Secret Questions</label>
-          <select id="secret" class="form-control" formControlName="secret">
-            <option value="pet">Your first pet?</option>
-            <option value="teacher">Your favourite high school teacher?</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <textarea
-            name="questionAnswer"
-            rows="3"
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
             class="form-control"
+            formControlName="name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            name="description"
+            rows="3"
+            columns="100"
+            class="form-control"
+            formControlName="description"
           ></textarea>
         </div>
-        <div formArrayName="hobbies">
-          <h4>Your hobbies</h4>
-          <button class="btn btn-default" type="button" (click)="onAddHobby()">
-            Add Hobby
-          </button>
-          <div
-            class="form-group"
-            *ngFor="let hobbyControl of getControls(); let i = index"
-          >
-            <input type="text" class="form-control" [formControlName]="i" />
-          </div>
+        <div class="form-group">
+          <label for="imageUrl">Image URL</label>
+          <input
+            type="text"
+            id="imageUrl"
+            class="form-control"
+            formControlName="imageUrl"
+          />
         </div>
-        <span *ngIf="!signupForm.valid && signupForm.touched"
-          >Please enter valid data!</span
-        >
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" type="submit" [disabled]="submitting">
+          Submit
+        </button>
       </form>
     </div>
   </div>

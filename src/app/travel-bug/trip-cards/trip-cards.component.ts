@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { TripCardsService } from "./trip-cards.service";
 import { Router, ActivatedRoute } from "@angular/router";
-import { TripCard } from "./trip-card.model";
+import { TripCard, TripCardPreview } from "./trip-card.model";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
@@ -23,25 +23,18 @@ export class TripCardsComponent implements OnInit, OnDestroy {
   //         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh32M-VtHxrXW8K8cWNkmEN5lW716iSLY26dkrn1QpQR5kcnaP&s"
   //     },
   // ]
-
+  submitting: boolean;
   tripCards: TripCard[] = [];
   subscription: Subscription;
 
   constructor(
-    private tripCardService: TripCardsService,
+    private tripCardsService: TripCardsService,
     private router: Router,
-    private route: ActivatedRoute,
-    private http: HttpClient
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.subscription = this.tripCardService.tripCardsChanged.subscribe(
-      (tripCards: TripCard[]) => {
-        this.tripCards = tripCards;
-        this.http.post("sample-url", { tripCards: [...this.tripCards] });
-      }
-    );
-    this.tripCards = this.tripCardService.getTripCards();
+    this.tripCards = this.tripCardsService.getTripCards();
   }
 
   onAddTripCard() {
@@ -49,6 +42,6 @@ export class TripCardsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 }

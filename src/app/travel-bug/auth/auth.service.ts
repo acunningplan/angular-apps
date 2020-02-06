@@ -17,8 +17,8 @@ export class AuthService {
     return this.http
       .post<AuthResponseData>("http://localhost:5000/api/user/login", {
         email: email,
-        password: password,
-        returnSecureToken: true
+        password: password
+        // returnSecureToken: true
       })
       .pipe(
         catchError(() => throwError("An error occurred.")),
@@ -31,7 +31,7 @@ export class AuthService {
             new Date(new Date().getTime() + 1000000000)
           );
           this.user.next(user);
-          this.autoLogout(+resData.expiresIn * 1000);
+          // this.autoLogout(+resData.expiresIn * 1000);
           localStorage.setItem("userData", JSON.stringify(user));
         })
       );
@@ -56,7 +56,8 @@ export class AuthService {
       const expirationDuration = 1000000000;
       // const expirationDuration = new Date(userData._tokenExpirationDate).getTime() -
       // new Date().getTime();
-      this.autoLogout(expirationDuration);
+
+      // this.autoLogout(expirationDuration);
     }
   }
 
