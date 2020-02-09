@@ -1,9 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  FormGroup,
-  FormControl,
-  AbstractControl,
-} from "@angular/forms";
+import { FormGroup, FormControl, AbstractControl } from "@angular/forms";
 import { TripCard } from "../trip-card.model";
 import { TripCardsService } from "../trip-cards.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";

@@ -3,12 +3,12 @@ export interface TripCard {
   date: Date;
   name: string;
   description: string;
-  pointsOfInterest: any;
-  author: {
-    appUserId: string;
-    displayName: string;
-    mainPhotoUrl: string;
-  };
+  // pointsOfInterest: any;
+  // author: {
+  //   appUserId: string;
+  //   displayName: string;
+  //   mainPhotoUrl: string;
+  // };
   [key: string]: any;
   // pointsOfInterests: string[];
   // user: string;
@@ -26,6 +26,7 @@ export interface TripCard {
 }
 
 export interface TripCardPreview {
+  id: string;
   date: Date;
   name: string;
   description: string;

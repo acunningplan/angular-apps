@@ -27,7 +27,6 @@ export class AddTripCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.signupForm = new FormGroup({
-      // date: new FormControl(),
       name: new FormControl(),
       description: new FormControl(),
       imageUrl: new FormControl()
@@ -47,14 +46,11 @@ export class AddTripCardComponent implements OnInit, OnDestroy {
     let tripCard: TripCard = {
       date: new Date(),
       name: this.name.value,
-      description: this.description.value,
-      pointsOfInterest: "",
-      author: {
-        appUserId: "",
-        displayName: "",
-        mainPhotoUrl: ""
-      }
+      description: this.description.value
+      // pointsOfInterest: []
     };
+
+    console.log(tripCard);
 
     this.tripCardsService.addTripCard(tripCard);
     // this.router.navigate(["/trip-cards"]);

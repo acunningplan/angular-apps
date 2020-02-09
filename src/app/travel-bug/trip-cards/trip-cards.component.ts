@@ -34,7 +34,12 @@ export class TripCardsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.tripCards = this.tripCardsService.getTripCards();
+    this.tripCards = this.tripCardsService.fetchTripCards();
+    this.subscription = this.tripCardsService.tripCardsChanged.subscribe(
+      res => {
+        this.tripCards = res;
+      }
+    );
   }
 
   onAddTripCard() {
