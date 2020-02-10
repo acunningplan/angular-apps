@@ -1,14 +1,21 @@
 <div class="card trip-card" [ngClass]="{ opaque: isOpaque }">
-    <img [src]="tripCard.image"
-         class="card-img-top"
-         alt="..."
-         [routerLink]="['view', tripCard.name]" />
-    <div class="card-body">
-        <h5 class="card-title">{{ tripCard.name }}</h5>
-        <p class="card-text">
-            {{ tripCard.description }}
-        </p>
-        <a [routerLink]="['view', tripCard.name]" class="btn btn-primary">Details</a>
-        <a class="btn btn-danger" style="margin-left: 5px" (click)="onDelete()">Delete</a>
-    </div>
+  <img
+    [src]="tripCard.image"
+    class="card-img-top"
+    alt="..."
+    [routerLink]="['view', tripCard.name]"
+  />
+  <div class="card-body">
+    <h5 class="card-title">{{ tripCard.name }}</h5>
+    <p class="card-text">
+      {{ tripCard.description }}
+    </p>
+    <a [routerLink]="['view', tripCard.name]" class="btn btn-primary"
+      >Details</a
+    >
+    <a class="btn btn-warning" (click)="onStartEdit()">Edit</a>
+    <a class="btn btn-danger" (click)="onDelete()"
+      >Delete</a
+    >
+  </div>
 </div>

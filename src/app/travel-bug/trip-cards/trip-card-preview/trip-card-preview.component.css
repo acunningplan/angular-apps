@@ -1,11 +1,15 @@
 .trip-card {
-    width: 18rem;
+  width: 18rem;
 }
 
-    .trip-card img {
-        cursor: pointer;
-    }
+.trip-card img {
+  cursor: pointer;
+}
+
+a {
+  margin-right: 10px;
+}
 
 .opaque {
-    opacity: 0.5;
+  opacity: 0.5;
 }

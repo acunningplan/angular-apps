@@ -17,17 +17,23 @@ import { AuthGuard } from "./auth/auth.guard";
 import { TripCardPreviewComponent } from "./trip-cards/trip-card-preview/trip-card-preview.component";
 import { TripCardComponent } from "./trip-cards/trip-card/trip-card.component";
 import { AuthInterceptorService } from "./auth/auth-interceptor.service";
+import { TripCardsResolverService } from "./trip-cards/trip-cards-resolver.service";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
   { path: "users", component: UsersComponent },
   {
     path: "trip-cards",
+    resolve: [TripCardsResolverService],
     // canActivate: [AuthGuard],
     children: [
       { path: "", component: TripCardsComponent },
       { path: "add", component: AddTripCardComponent },
-      { path: "edit/:id", component: EditTripCardComponent },
+      {
+        path: "edit/:id",
+        component: EditTripCardComponent,
+        resolve: [TripCardsResolverService]
+      },
       { path: "view/:id", component: TripCardDetailsComponent }
     ]
   },

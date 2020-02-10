@@ -12,13 +12,13 @@ import { Subscription } from "rxjs";
 })
 export class AddTripCardComponent implements OnInit, OnDestroy {
   tripCardId: number;
-  subscription: Subscription;
   submitting: boolean;
-
   signupForm: FormGroup;
   name: AbstractControl;
   description: AbstractControl;
   imageUrl: AbstractControl;
+
+  subs: Subscription[] = [];
 
   constructor(
     private tripCardsService: TripCardsService,
@@ -35,10 +35,10 @@ export class AddTripCardComponent implements OnInit, OnDestroy {
     this.name = this.signupForm.get("name");
     this.description = this.signupForm.get("description");
     this.imageUrl = this.signupForm.get("imageUrl");
-    this.subscription = this.tripCardsService.submitting.subscribe(
-      submitting => {
+    this.subs.push(
+      this.tripCardsService.submitting.subscribe(submitting => {
         this.submitting = submitting;
-      }
+      })
     );
   }
 
@@ -50,13 +50,14 @@ export class AddTripCardComponent implements OnInit, OnDestroy {
       // pointsOfInterest: []
     };
 
-    console.log(tripCard);
-
-    this.tripCardsService.addTripCard(tripCard);
-    // this.router.navigate(["/trip-cards"]);
+    this.subs.push(
+      this.tripCardsService
+        .addTripCard(tripCard)
+        .subscribe(res => this.router.navigate(["/trip-cards"]))
+    );
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subs.forEach(sub => sub.unsubscribe());
   }
 }
