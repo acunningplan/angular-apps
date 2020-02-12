@@ -2,6 +2,8 @@ import { Component, Input, OnInit, OnDestroy } from "@angular/core";
 import { TripCardPreview } from "../trip-card.model";
 import { TripCardsService } from "../trip-cards.service";
 import { Router } from "@angular/router";
+import { AuthService } from "../../auth/auth.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-trip-card-preview",
@@ -11,13 +13,31 @@ import { Router } from "@angular/router";
 export class TripCardPreviewComponent implements OnInit, OnDestroy {
   @Input() tripCard: TripCardPreview;
   isOpaque = false;
+  username = "";
+  editable = false;
+  subs: Subscription[] = [];
 
   constructor(
     private tripCardsService: TripCardsService,
-    private router: Router
+    private router: Router,
+    private AuthService: AuthService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subs.push(
+      this.AuthService.user.subscribe(user => {
+        this.username = user.username;
+      })
+    );
+
+    if (
+      this.tripCard &&
+      this.tripCard.author &&
+      this.tripCard.author.appUserId === this.username
+    ) {
+      this.editable = true;
+    }
+  }
 
   onStartEdit() {
     this.router.navigate([`trip-cards/edit/${this.tripCard.id}`]);
@@ -28,5 +48,7 @@ export class TripCardPreviewComponent implements OnInit, OnDestroy {
     this.tripCardsService.deleteTripCard(this.tripCard.id);
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.subs.forEach(sub => sub.unsubscribe());
+  }
 }

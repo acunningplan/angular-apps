@@ -28,7 +28,10 @@ export class AuthService {
           // );
           const user = new User(
             resData.token,
-            new Date(new Date().getTime() + 1000000000)
+            new Date(new Date().getTime() + 1000000000),
+            resData.username,
+            resData.displayName,
+            resData.image
           );
           this.user.next(user);
           // this.autoLogout(+resData.expiresIn * 1000);
@@ -41,8 +44,13 @@ export class AuthService {
     return this.login(email, password);
   }
 
+  getUserData() {
+    
+  }
+
   autoLogin() {
     const userData: IUserData = JSON.parse(localStorage.getItem("userData"));
+
     if (!userData) {
       return;
     }
@@ -50,7 +58,10 @@ export class AuthService {
     if (userData._token) {
       const loadedUser = new User(
         userData._token,
-        new Date(new Date().getTime() + 1000000000)
+        new Date(new Date().getTime() + 1000000000),
+        userData._username,
+        userData.displayName,
+        userData.imageUrl
       );
       this.user.next(loadedUser);
       const expirationDuration = 1000000000;

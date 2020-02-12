@@ -13,8 +13,10 @@
     <a [routerLink]="['view', tripCard.name]" class="btn btn-primary"
       >Details</a
     >
-    <a class="btn btn-warning" (click)="onStartEdit()">Edit</a>
-    <a class="btn btn-danger" (click)="onDelete()"
+    <a class="btn btn-warning" [hidden]="!editable" (click)="onStartEdit()"
+      >Edit</a
+    >
+    <a class="btn btn-danger" [hidden]="!editable" (click)="onDelete()"
       >Delete</a
     >
   </div>
