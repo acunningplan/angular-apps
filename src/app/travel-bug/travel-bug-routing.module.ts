@@ -10,6 +10,7 @@ import { AuthComponent } from "./auth/auth.component";
 import { TripCardsResolverService } from "./trip-cards/trip-cards-resolver.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptorService } from "./auth/auth-interceptor.service";
+import { AuthGuard } from "./auth/auth.guard";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -17,7 +18,7 @@ const appRoutes: Routes = [
   {
     path: "trip-cards",
     resolve: [TripCardsResolverService],
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       { path: "", component: TripCardsComponent },
       { path: "add", component: AddTripCardComponent },

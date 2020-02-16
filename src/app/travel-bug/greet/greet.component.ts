@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { AuthService } from "../auth/auth.service";
-import { Subscription } from "rxjs";
 import { IUserData } from "../auth/models";
+import { Subscription } from "rxjs";
+import { AuthService } from "../auth/auth.service";
 
 @Component({
   selector: "app-greet",
@@ -9,14 +9,18 @@ import { IUserData } from "../auth/models";
   styleUrls: ["./greet.component.css"]
 })
 export class GreetComponent implements OnInit, OnDestroy {
-  displayName = "Guest";
+  displayName: string;
+  authSub: Subscription;
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    const userData: IUserData = JSON.parse(localStorage.getItem("userData"));
-    this.displayName = userData.displayName;
+    this.authSub = this.authService.user.subscribe(user => {
+      this.displayName = user ? user.displayName : "Guest";
+    });
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.authSub.unsubscribe();
+  }
 }

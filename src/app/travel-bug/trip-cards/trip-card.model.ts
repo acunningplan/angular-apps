@@ -2,15 +2,15 @@ export interface INewTripCard {
   date: Date;
   name: string;
   description: string;
-
+  imageUrl: string;
 }
-
 
 export interface TripCard {
   // id: string;
   date: Date;
   name: string;
   description: string;
+  imageUrl: string;
   // pointsOfInterest: any;
   // author: {
   //   appUserId: string;

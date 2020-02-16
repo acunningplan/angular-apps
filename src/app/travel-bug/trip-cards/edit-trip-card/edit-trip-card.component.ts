@@ -4,7 +4,7 @@ import { TripCard } from "../trip-card.model";
 import { TripCardsService } from "../trip-cards.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { IUserData } from '../../auth/models';
+import { IUserData } from "../../auth/models";
 
 @Component({
   selector: "app-edit-trip-card",
@@ -60,12 +60,13 @@ export class EditTripCardComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const userData: IUserData = JSON.parse(localStorage.getItem("userData"))
+    const userData: IUserData = JSON.parse(localStorage.getItem("userData"));
 
     const tripCard: TripCard = {
       date: new Date(),
       name: this.name.value,
       description: this.description.value,
+      imageUrl: this.imageUrl.value,
       author: {
         appUserId: userData._username,
         displayName: userData.displayName,

@@ -36,6 +36,7 @@ export class TripCardsService {
       .pipe(
         tap(tripCards => {
           this.tripCards = Array.from(tripCards);
+          console.log(this.tripCards);
           this.tripCardsChanged.next([...this.tripCards]);
         })
       );
